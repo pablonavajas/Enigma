@@ -1,4 +1,6 @@
-/* error codes  */
+#ifndef ERRORS_H
+#define ERRORS_H
+
 #define INSUFFICIENT_NUMBER_OF_PARAMETERS         1
 #define INVALID_INPUT_CHARACTER                   2
 #define INVALID_INDEX                             3
@@ -11,3 +13,5 @@
 #define INCORRECT_NUMBER_OF_REFLECTOR_PARAMETERS  10
 #define ERROR_OPENING_CONFIGURATION_FILE          11
 #define NO_ERROR                                  0
+
+#endif
