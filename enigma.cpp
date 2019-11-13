@@ -43,7 +43,7 @@ int Enigma_Machine::connections(int argc, char** argv){
 
   //Raise error if insufficient number of parameters introduced:
   if (argc < 4){
-    cerr << "Insufficient number of parameters introduced." << endl;
+    cerr << "usage: enigma plugboard-file reflector-file (<rotor-file>)* rotor-positions" << endl;
     Err_state = INSUFFICIENT_NUMBER_OF_PARAMETERS;
     return INSUFFICIENT_NUMBER_OF_PARAMETERS;
   }
@@ -56,23 +56,21 @@ int Enigma_Machine::connections(int argc, char** argv){
   plugboard = new pb_board;
   Err_state = plugboard->pb_connections(argv[1]);
 
+  if (Err_state != NO_ERROR)
+    return Err_state;
+  
   //Configure Reflector:
   reflector = new rf_board;
   Err_state = reflector->rf_connections(argv[2]);
 
+  if (Err_state != NO_ERROR)
+    return Err_state;
+  
   //Configure rotors if introduced:
   if (no_rot > 0){
 
     rotors = new rot_board;
     Err_state = rotors->rot_settings(argc,argv);
-
-    /*
-    printVecVec(rotors->rotor_part);
-    printVec(rotors->rot_notches);
-  
-    rotors->rotation(rotors->rotor_part,rotors->rot_notches);
-    printVecVec(rotors->rotor_part);
-    */
   }
 
   return Err_state;
