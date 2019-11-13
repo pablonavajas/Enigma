@@ -46,8 +46,6 @@ int main(int argc, char** argv) {
   
   while (iss >> std::ws >> letter){
 
-    cout << letter << endl;
-
     if (int(letter) < 65 or int(letter) > 90){
       cerr << "Unrecognized character: " << letter << " in standard input stream. Recognized characters must be capital letters: A-Z." << endl;
       return INVALID_INPUT_CHARACTER;
@@ -55,7 +53,7 @@ int main(int argc, char** argv) {
     
     enigma->cypher(letter);
 
-    cout << "New letter is: " << letter << endl;
+    cout << letter << endl;
 
   }
  
