@@ -28,13 +28,11 @@ int main(int argc, char** argv) {
   //Configure Enigma Machine:
   Err_state = enigma->connections(argc,argv);
 
-  cout << Err_state << "\nReady\n";
-
-  enigma->printenigma();
+  if (Err_state != NO_ERROR)
+    return Err_state;
+  
   
   //Encryption and decryption mechanism:
-
-  cout << "\n\nEnter message: \n";
 
   string line;
 
@@ -53,13 +51,14 @@ int main(int argc, char** argv) {
     
     enigma->cypher(letter);
 
-    cout << letter << endl;
+    cout << letter;
 
   }
+  cout << endl;
  
   delete enigma;
 
-  return NO_ERROR;
+  return Err_state;
 
 }
 
