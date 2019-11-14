@@ -32,7 +32,7 @@ rot_board::~rot_board(){
 }
 
 
-int rot_board::vectorize_rot(string str, std::vector<int>& wires){
+int rot_board::vectorize_rot(string str, std::vector<std::pair<int,int> >& wires){
   
   std::vector<string> str_vector = split(str,' ');
   std::locale loc;
@@ -65,13 +65,13 @@ int rot_board::vectorize_rot(string str, std::vector<int>& wires){
     }
 
     for (unsigned int rec_idx = 0; rec_idx < wires.size() and wires.size() < 26; rec_idx++){
-      if (val == wires[rec_idx]){
+      if (val == wires[rec_idx].first){
 	cerr << "Invalid mapping of input " << index << " to output " << val << " (output " << val << " is already mapped to from input " << rec_idx << ") in ";
 	return INVALID_ROTOR_MAPPING;
       }
     }
 
-    wires.push_back(val);
+    wires.push_back(std::make_pair(val,index));
   }
   if (wires.size() < 26){
     cerr << "Not all inputs mapped in rotor file: ";
@@ -119,20 +119,28 @@ int rot_board::vectorize(string str,std::vector<int>& start_pos){
   return NO_ERROR;
 }
 
-void rot_board::initialPositions(std::vector<std::vector<int> >& rotor_part, std::vector<int> start_pos){
+void rot_board::initialPositions(std::vector<std::vector<std::pair<int,int> > >& rotor_part, std::vector<int> start_pos){
 
   for (int rot_index = rotor_part.size()-1; rot_index >= 0; rot_index--){
 
-    while (rotor_part[rotor_part.size()-1 - rot_index][0] != start_pos[rot_index]){
-      rotate(rotor_part[rot_index].begin(), rotor_part[rot_index].begin()+1,rotor_part[rot_index].end());
+    //std::cout << "\n\nREAD rotor - " << rot_index;
+
+    std::rotate(rotor_part[rot_index].begin(), rotor_part[rot_index].begin()+start_pos[rotor_part.size()-1-rot_index],rotor_part[rot_index].end());
+
+    for (unsigned int val_idx = 0; val_idx < rotor_part[rot_index].size(); val_idx++){
+      //std::cout << "\n value: " << rotor_part[rot_index][val_idx].first << " - " << start_pos[rotor_part.size()-1-rot_index];
+      int new_val = (rotor_part[rot_index][val_idx].first - start_pos[rotor_part.size()-1-rot_index])%26;
+      rotor_part[rot_index][val_idx].first = (new_val >= 0) ? new_val : 26+new_val;
+      //std::cout << " is now " << rotor_part[rot_index][val_idx].first << " at " << val_idx << endl;
     }
   }
 }
 
 
+
 int rot_board::rot_settings(int argc, char** argv){
 
-  std::vector<int> rot_wires;
+  std::vector<std::pair<int,int> > rot_wires;
 
   for (int file_idx = argc - 2; file_idx >= 3; file_idx--){
 
@@ -150,7 +158,7 @@ int rot_board::rot_settings(int argc, char** argv){
       return Err_state;
     }
     
-    rot_notches.push_back(rot_wires[26]);
+    rot_notches.push_back(rot_wires[26].first);
 
     rot_wires.erase(rot_wires.end()-1);
 
@@ -184,14 +192,25 @@ int rot_board::rot_settings(int argc, char** argv){
 
 }
 
-void rot_board::rotation(std::vector<std::vector<int>> & rotor_part, std::vector<int> rot_notches){
+void rot_board::rotation(std::vector<std::vector<std::pair<int,int>>> & rotor_part, std::vector<int> rot_notches){
 
-  rotate(rotor_part[0].begin(), rotor_part[0].begin()+1,rotor_part[0].end());
+  std::rotate(rotor_part[0].begin(), rotor_part[0].begin()+1,rotor_part[0].end());
+  for (unsigned int val_idx = 0; val_idx < rotor_part[0].size(); val_idx++){
+
+    int new_val = (rotor_part[0][val_idx].first - 1)%26;
+    rotor_part[0][val_idx].first = (new_val >= 0) ? new_val : 26+new_val;
+  }
+
   bool prev_rot = true;
 
   for (unsigned int rot_index = 1; rot_index < rotor_part.size(); rot_index++){
-    if (rotor_part[rot_index-1][0] == rot_notches[rot_index-1] and prev_rot == true){
-      rotate(rotor_part[rot_index].begin(), rotor_part[rot_index].begin()+1,rotor_part[rot_index].end());
+    if (rotor_part[rot_index-1][0].second == rot_notches[rot_index-1] and prev_rot == true){
+      std::rotate(rotor_part[rot_index].begin(), rotor_part[rot_index].begin()+1,rotor_part[rot_index].end());
+      for (unsigned int val_idx = 0; val_idx < rotor_part[rot_index].size(); val_idx++){
+
+	int new_val = (rotor_part[rot_index][val_idx].first - 1)%26;
+	rotor_part[rot_index][val_idx].first = (new_val >= 0) ? new_val : 26+new_val;
+      }
     }
     else {
       prev_rot = false;

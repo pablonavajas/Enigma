@@ -36,6 +36,6 @@ void printVec(std::vector<int> const vect);
 void printVecPairs(std::vector<std::pair<int,int> > const wires);
 
 //Function to print Vector of Vectors
-void printVecVec(std::vector<std::vector<int> > const vect);
+void printVecVec(std::vector<std::vector<std::pair<int,int> > > const vect);
 
 #endif

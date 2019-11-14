@@ -121,7 +121,7 @@ void Enigma_Machine::rot_forward(int& let_int){
   for (unsigned int idx = 0; idx < rotors->rotor_part.size();idx++){
     
     //Assign element occupying the current element's index:
-    let_int = rotors->rotor_part[idx][let_int];
+    let_int = rotors->rotor_part[idx][let_int].first;
     //cout << " rot " << idx << ": " << let_int;
   }
   //cout << " rot f: " << let_int;
@@ -159,7 +159,7 @@ void Enigma_Machine::rot_back(int& let_int){
     for (unsigned int val_idx = 0; val_idx < rotors->rotor_part[vec_idx].size(); val_idx++){
 
       //When value is found assign index to helper variable:
-      if (let_int == rotors->rotor_part[vec_idx][val_idx]){
+      if (let_int == rotors->rotor_part[vec_idx][val_idx].first){
 
 	//Assign index to helper variable to avoid further swaps from loop:
 	help_int = val_idx;

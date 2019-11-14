@@ -97,7 +97,7 @@ void printVecPairs(std::vector<std::pair<int,int> > const wires){
 }
   
 
-void printVecVec(std::vector<std::vector<int> > const vect){
+void printVecVec(std::vector<std::vector<std::pair<int,int> > > const vect){
   cout << "\n";
   //Print indexes to improve readability
   for (unsigned int index = 0; index < vect[0].size(); index++){
@@ -107,7 +107,7 @@ void printVecVec(std::vector<std::vector<int> > const vect){
 
   for (unsigned int vec_idx = 0; vec_idx < vect.size(); vec_idx++){
     for (unsigned int val = 0; val < vect[vec_idx].size(); val++){
-      cout << setw(1) << "|" << setw(2) << vect[vec_idx][val];
+      cout << setw(1) << "|" << setw(2) << vect[vec_idx][val].first;
     }
     cout << "|\n";
   }

@@ -31,7 +31,6 @@ int main(int argc, char** argv) {
   if (Err_state != NO_ERROR)
     return Err_state;
 
-  //enigma->printenigma();
   
   //Encryption and decryption mechanism:
 
@@ -53,7 +52,6 @@ int main(int argc, char** argv) {
     enigma->cypher(letter);
 
     cout << letter;
-
   }
  
   delete enigma;
