@@ -145,8 +145,10 @@ int rot_board::rot_settings(int argc, char** argv){
 
   Err_state = vectorize(start_str, start_pos);
 
-  if (Err_state != NO_ERROR)
+  if (Err_state != NO_ERROR){
+    cerr << argv[argc-1];
     return Err_state;
+  }
 
   else if (start_pos.size() < rotor_part.size()){
     cerr << "No starting position for rotor 0 in rotor position file: " << argv[argc-1] << endl;
