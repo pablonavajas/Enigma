@@ -69,7 +69,7 @@ int rot_board::vectorize_rot(string str, std::vector<std::pair<int,int> >& wires
     for (unsigned int rec_idx = 0; rec_idx < wires.size() and wires.size() < 26; rec_idx++){
       if (val == wires[rec_idx].first){
 	//Print error message as similar as possible to test solution:
-	cerr << "Invalid mapping of input " << index << " to output " << val << " (output " << val << " is already mapped to from input " << rec_idx << ") in ";
+	cerr << "Invalid mapping of input " << index << " to output " << val << " (output " << val << " is already mapped to from input " << rec_idx << ") in rotor file: ";
 	return INVALID_ROTOR_MAPPING;
       }
     }
