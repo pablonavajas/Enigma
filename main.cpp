@@ -45,7 +45,7 @@ int main(int argc, char** argv) {
   while (iss >> std::ws >> letter){
 
     if (int(letter) < 65 or int(letter) > 90){
-      cerr << "Unrecognized character: " << letter << " in standard input stream. Recognized characters must be capital letters: A-Z." << endl;
+      cerr << letter << " is not a valid input character (input characters must be upper case letters A-Z)!" << endl;
       return INVALID_INPUT_CHARACTER;
     }
     
