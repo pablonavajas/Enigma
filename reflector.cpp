@@ -74,12 +74,13 @@ int rf_board::rf_vectorized_pairs(std::vector<string> str_vector,std::vector<std
     ss_val1 >> val1;
     ss_val2 >> val2;
 
+    /*
     if (ss_val1.fail() or ss_val2.fail()){
       cerr << "Non-numeric character in reflector file ";
       return NON_NUMERIC_CHARACTER;
-    }
+      }*/
 
-    else if (val1 < 0 or val1 > 25 or val2 < 0 or val2 > 25){
+    if (val1 < 0 or val1 > 25 or val2 < 0 or val2 > 25){
       cerr << "Invalid index in reflector file ";
       return INVALID_INDEX;
     }

@@ -1,3 +1,12 @@
+//Imperial College London - Department of Computing
+//MSc C++ Programming - Assessed Exercise No. 2
+//Enigma Machine Implementation
+//
+//Created by: Pablo Navajas Helguero
+//Date: 13th November 2019
+//
+//File: helper.cpp
+
 #include <string>
 #include <fstream>
 #include <iostream>
@@ -39,6 +48,7 @@ int read_file(const char* filename, string& str){
   return NO_ERROR;
 }
 
+
 std::vector<string> split(string str, char delimiter){
 
   std::vector<string> splited_str;
@@ -46,16 +56,19 @@ std::vector<string> split(string str, char delimiter){
 
   stringstream strstream(str);
 
+  //Separate string according to delimiter, and introduce value in vector
   while (getline(strstream,value,delimiter)){
     splited_str.push_back(value);
   }
   return splited_str;
 }
 
+
 void printStr(string str){
   cout << "\n";
   cout << str << '\n';
 }
+
 
 void printVecStr(std::vector<string> strvector){
   cout << "\n";
@@ -65,13 +78,6 @@ void printVecStr(std::vector<string> strvector){
   cout << "\n";
 }
 
-void printVecPairs(std::vector<std::pair<int,int> > const wires){
-  cout << "\n";
-  for (unsigned int index = 0; index < wires.size(); index++){
-    cout << setw(1) << wires[index].first << setw(1) << ":" << setw(1) << wires[index].second << setw(1) << "|";
-  }
-  cout << "\n";
-}
 
 void printVec(std::vector<int> const vect){
   cout << '\n';
@@ -80,10 +86,20 @@ void printVec(std::vector<int> const vect){
   }
   cout << "|\n";
 }
+
+
+void printVecPairs(std::vector<std::pair<int,int> > const wires){
+  cout << "\n";
+  for (unsigned int index = 0; index < wires.size(); index++){
+    cout << setw(1) << wires[index].first << setw(1) << ":" << setw(1) << wires[index].second << setw(1) << "|";
+  }
+  cout << "\n";
+}
   
 
 void printVecVec(std::vector<std::vector<int> > const vect){
   cout << "\n";
+  //Print indexes to improve readability
   for (unsigned int index = 0; index < vect[0].size(); index++){
     cout << setw(1) << "|" << setw(2) << index;
   }

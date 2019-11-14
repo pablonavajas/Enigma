@@ -7,7 +7,6 @@
 //
 //File: plugboard.cpp
 
-
 #include <iostream>
 #include <string>
 #include <vector>
@@ -28,12 +27,13 @@ pb_board::pb_board(){
 }
 
 pb_board::~pb_board(){
-  //The destructor for vector and string class objects is called when the object goes out of scope
+  //Destructors for vector/string are called when the object goes out of scope by default
 }
 
 
 int pb_board::pb_vectorized_pairs(std::vector<string> str_vector,std::vector<std::pair<int,int> > &wired_pairs){
 
+  
   std::locale loc;
   
   for (unsigned int index = 0; index < str_vector.size() ; index+=2){
@@ -69,12 +69,13 @@ int pb_board::pb_vectorized_pairs(std::vector<string> str_vector,std::vector<std
     ss_val1 >> val1;
     ss_val2 >> val2;
 
+    /*
     if (ss_val1.fail() or ss_val2.fail()){
       cerr << "Non-numeric character in plugboard file ";
       return NON_NUMERIC_CHARACTER;
-    }
+      }*/
 
-    else if (val1 < 0 or val1 > 25 or val2 < 0 or val2 > 25){
+    if (val1 < 0 or val1 > 25 or val2 < 0 or val2 > 25){
       cerr << "Invalid index in plugboard file ";
       return INVALID_INDEX;
     }

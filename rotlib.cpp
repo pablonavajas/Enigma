@@ -53,12 +53,13 @@ int rot_board::vectorize_rot(string str, std::vector<int>& wires){
     int val = 0;
     ss_val >> val;
 
+    /*
     if (ss_val.fail()){
       cerr << "Non-numeric character for mapping in rotor file ";
       return NON_NUMERIC_CHARACTER;
-    }
+      }*/
 
-    else if (val < 0 or val > 25){
+    if (val < 0 or val > 25){
       cerr << "Invalid index for mapping in rotor file ";
       return INVALID_INDEX;
     }
@@ -101,12 +102,13 @@ int rot_board::vectorize(string str,std::vector<int>& start_pos){
     int val = 0;
     ss_val >> val;
 
+    /*
     if (ss_val.fail()){
       cerr << "Non-numeric character in rotor positions file ";
       return NON_NUMERIC_CHARACTER;
-    }
+      }*/
 
-    else if (val < 0 or val > 25){
+    if (val < 0 or val > 25){
       cerr << "Invalid index in rotors positions file ";
       return INVALID_INDEX;
     }

@@ -122,9 +122,9 @@ void Enigma_Machine::rot_forward(int& let_int){
     
     //Assign element occupying the current element's index:
     let_int = rotors->rotor_part[idx][let_int];
-    cout << " rot " << idx << ": " << let_int;
+    //cout << " rot " << idx << ": " << let_int;
   }
-  cout << " rot f: " << let_int;
+  //cout << " rot f: " << let_int;
 }
 
 

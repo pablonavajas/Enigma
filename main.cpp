@@ -38,8 +38,6 @@ int main(int argc, char** argv) {
   string line;
 
   getline(std::cin,line);
-  
-  cout << line << endl;
 
   std::istringstream iss(line);
 
