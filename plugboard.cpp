@@ -12,6 +12,7 @@
 #include <string>
 #include <vector>
 #include <sstream>
+#include <locale>
 
 #include "plugboard.h"
 #include "helper.h"
@@ -33,6 +34,8 @@ pb_board::~pb_board(){
 
 int pb_board::pb_vectorized_pairs(std::vector<string> str_vector,std::vector<std::pair<int,int> > &wired_pairs){
 
+  std::locale loc;
+  
   for (unsigned int index = 0; index < str_vector.size() ; index+=2){
 
     if (index >= str_vector.size()-1){
@@ -40,6 +43,23 @@ int pb_board::pb_vectorized_pairs(std::vector<string> str_vector,std::vector<std
       return INCORRECT_NUMBER_OF_PLUGBOARD_PARAMETERS;
     }
 
+    string line1 = str_vector[index];
+    string line2 = str_vector[index+1];
+
+    for (unsigned int line_idx = 0; line_idx < line1.length() ; line_idx++){
+      if (!isdigit(line1[line_idx],loc)){
+	cerr << "";
+	return NON_NUMERIC_CHARACTER;
+      }
+    }
+
+    for (unsigned int line_idx = 0; line_idx < line2.length() ; line_idx++){
+      if (!isdigit(line2[line_idx],loc)){
+	cerr << "Non-numeric character in plugboard file ";
+	return NON_NUMERIC_CHARACTER;
+      }
+    }
+    
     stringstream ss_val1(str_vector[index]);
     stringstream ss_val2(str_vector[index+1]);
 

@@ -12,6 +12,7 @@
 #include <vector>
 #include <sstream>
 #include <algorithm>
+#include <locale>
 
 #include "rotlib.h"
 #include "helper.h"
@@ -34,10 +35,20 @@ rot_board::~rot_board(){
 int rot_board::vectorize_rot(string str, std::vector<int>& wires){
   
   std::vector<string> str_vector = split(str,' ');
+  std::locale loc;
   
   for (unsigned int index = 0; index < str_vector.size() and wires.size() < 27; index++){
+
+    string line = str_vector[index];
     
-    stringstream ss_val(str_vector[index]);
+    for (unsigned int str_idx = 0; str_idx < line.length() ; str_idx++){
+      if (!isdigit(line[str_idx],loc)){
+	cerr << "Non-numeric character for mapping in rotor file ";
+	return NON_NUMERIC_CHARACTER;
+      }
+    }
+    
+    stringstream ss_val(line);
 
     int val = 0;
     ss_val >> val;
