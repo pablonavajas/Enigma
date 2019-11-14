@@ -68,7 +68,7 @@ void printVecStr(std::vector<string> strvector){
 void printVecPairs(std::vector<std::pair<int,int> > const wires){
   cout << "\n";
   for (unsigned int index = 0; index < wires.size(); index++){
-    cout << setw(1) << wires[index].first << setw(1) << " : " << setw(1) << wires[index].second << setw(1) << "|";
+    cout << setw(1) << wires[index].first << setw(1) << ":" << setw(1) << wires[index].second << setw(1) << "|";
   }
   cout << "\n";
 }

@@ -86,8 +86,11 @@ void Enigma_Machine::printenigma(){
   printVecPairs(reflector->rf_wires);
 
   if (no_rot > 0){
+    cout << "\nrotors: \n";
     printVecVec(rotors->rotor_part);
+    cout << "\nnotches: \n";
     printVec(rotors->rot_notches);
+    cout << "\nstart: \n";
     printVec(rotors->start_pos);
   }
 }

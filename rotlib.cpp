@@ -65,7 +65,7 @@ int rot_board::vectorize_rot(string str, std::vector<int>& wires){
 
     for (unsigned int rec_idx = 0; rec_idx < wires.size() and wires.size() < 26; rec_idx++){
       if (val == wires[rec_idx]){
-	cerr << "Invalid mapping of input " << index << " to output " << val << " (output " << val << " is already mapped to from input " << rec_idx << ") in rotor file ";
+	cerr << "Invalid mapping of input " << index << " to output " << val << " (output " << val << " is already mapped to from input " << rec_idx << ") in ";
 	return INVALID_ROTOR_MAPPING;
       }
     }
@@ -140,11 +140,13 @@ int rot_board::rot_settings(int argc, char** argv){
 
     if (Err_state != NO_ERROR)
       return Err_state;
+
+    std::cout << "\nfile " << file_idx << ": " << rot_str << endl;
     
     Err_state = vectorize_rot(rot_str, rot_wires);
 
     if (Err_state != NO_ERROR){
-      cerr << argv[file_idx];
+      cerr << argv[file_idx] << endl;
       return Err_state;
     }
     
