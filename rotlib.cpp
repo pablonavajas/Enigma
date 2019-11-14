@@ -123,7 +123,7 @@ void rot_board::initialPositions(std::vector<std::vector<int> >& rotor_part, std
 
   for (int rot_index = rotor_part.size()-1; rot_index >= 0; rot_index--){
 
-    while (rotor_part[rot_index][0] != start_pos[rot_index]){
+    while (rotor_part[rotor_part.size()-1 - rot_index][0] != start_pos[rot_index]){
       rotate(rotor_part[rot_index].begin(), rotor_part[rot_index].begin()+1,rotor_part[rot_index].end());
     }
   }
@@ -143,8 +143,6 @@ int rot_board::rot_settings(int argc, char** argv){
     if (Err_state != NO_ERROR)
       return Err_state;
 
-    std::cout << "\nfile " << file_idx << ": " << rot_str << endl;
-    
     Err_state = vectorize_rot(rot_str, rot_wires);
 
     if (Err_state != NO_ERROR){
