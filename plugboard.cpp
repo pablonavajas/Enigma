@@ -48,7 +48,7 @@ int pb_board::pb_vectorized_pairs(std::vector<string> str_vector,std::vector<std
 
     for (unsigned int line_idx = 0; line_idx < line1.length() ; line_idx++){
       if (!isdigit(line1[line_idx],loc)){
-	cerr << "";
+	cerr << "Non-numeric character in plugboard file ";
 	return NON_NUMERIC_CHARACTER;
       }
     }

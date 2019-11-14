@@ -83,11 +83,21 @@ int rot_board::vectorize_rot(string str, std::vector<int>& wires){
 int rot_board::vectorize(string str,std::vector<int>& start_pos){
   
   std::vector<string> str_vector = split(str,' ');
+  std::locale loc;
 
   for (unsigned int index = 0; index < str_vector.size(); index++){
     
     stringstream ss_val(str_vector[index]);
 
+    string line = str_vector[index];
+    
+    for (unsigned int str_idx = 0; str_idx < line.length() ; str_idx++){
+      if (!isdigit(line[str_idx],loc)){
+	cerr << "Non-numeric character in rotor positions file ";
+	return NON_NUMERIC_CHARACTER;
+      }
+    }
+    
     int val = 0;
     ss_val >> val;
 
@@ -134,7 +144,7 @@ int rot_board::rot_settings(int argc, char** argv){
     Err_state = vectorize_rot(rot_str, rot_wires);
 
     if (Err_state != NO_ERROR){
-      cerr << argv[file_idx];
+      cerr << argv[file_idx] << endl;
       return Err_state;
     }
     
@@ -157,7 +167,7 @@ int rot_board::rot_settings(int argc, char** argv){
   Err_state = vectorize(start_str, start_pos);
 
   if (Err_state != NO_ERROR){
-    cerr << argv[argc-1];
+    cerr << argv[argc-1] << endl;
     return Err_state;
   }
 
