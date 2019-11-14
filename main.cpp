@@ -54,7 +54,7 @@ int main(int argc, char** argv) {
     cout << letter;
 
   }
-  cout << endl;
+  cout << "\n";
  
   delete enigma;
 
