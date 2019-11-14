@@ -43,30 +43,30 @@ int rot_board::vectorize_rot(string str, std::vector<int>& wires){
     ss_val >> val;
 
     if (ss_val.fail()){
-      cerr << "Non-numeric character: rotor configuration file contains " << str_vector[index] << " at position " << index << endl;
+      cerr << "Non-numeric character for mapping in rotor file ";
       return NON_NUMERIC_CHARACTER;
     }
 
     else if (val < 0 or val > 25){
-      cerr << "Invalid index: rotor configuration file contains " << val << " at position " << index << endl;
+      cerr << "Invalid index for mapping in rotor file ";
       return INVALID_INDEX;
     }
 
     for (unsigned int rec_idx = 0; rec_idx < wires.size() and wires.size() < 26; rec_idx++){
       if (val == wires[rec_idx]){
-	cerr << "Invalid rotor mapping: repeated use of position " << rec_idx << " in rotor configuration file." << endl;
+	cerr << "Invalid mapping of input " << index << " to output " << val << "(output " << val << " is already mapped to from input " << rec_idx << " in rotor file ";
 	return INVALID_ROTOR_MAPPING;
       }
     }
 
     wires.push_back(val);
   }
-  if (wires.size() < 27){
-    cerr << "Insufficient number of rotor parameters" << endl;
+  if (wires.size() < 26){
+    cerr << "Not all inputs mapped in rotor file: ";
     return INVALID_ROTOR_MAPPING;
   }
     
-  return 0;
+  return NO_ERROR;
 }
 
 int rot_board::vectorize(string str,std::vector<int>& start_pos){
@@ -81,19 +81,19 @@ int rot_board::vectorize(string str,std::vector<int>& start_pos){
     ss_val >> val;
 
     if (ss_val.fail()){
-      cerr << "Non-numeric character in rotors' starting positions configuration file: " << str_vector[index] << endl;
+      cerr << "Non-numeric character in rotor positions file ";
       return NON_NUMERIC_CHARACTER;
     }
 
     else if (val < 0 or val > 25){
-      cerr << "Invalid index in rotors' starting positions configuration file: " << val << endl;
+      cerr << "Invalid index in rotors positions file ";
       return INVALID_INDEX;
     }
 
     start_pos.push_back(val);
   }
     
-  return 0;
+  return NO_ERROR;
 }
 
 void rot_board::initialPositions(std::vector<std::vector<int> >& rotor_part, std::vector<int> start_pos){
@@ -119,12 +119,13 @@ int rot_board::rot_settings(int argc, char** argv){
 
     if (Err_state != NO_ERROR)
       return Err_state;
-
     
     Err_state = vectorize_rot(rot_str, rot_wires);
 
-    if (Err_state != 0)
+    if (Err_state != 0){
+      cerr << argv[file_idx];
       return Err_state;
+    }
     
     rot_notches.push_back(rot_wires[26]);
 
@@ -145,7 +146,7 @@ int rot_board::rot_settings(int argc, char** argv){
   Err_state = vectorize(start_str, start_pos);
   
   if (start_pos.size() < rotor_part.size()){
-    cerr << "Insufficient number of starting positions for the number of rotors specified." << endl;
+    cerr << "No starting position for rotor 0 in rotor position file: " << argv[argc-1] << endl;
     return NO_ROTOR_STARTING_POSITION;
   }
 

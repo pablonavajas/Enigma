@@ -36,7 +36,7 @@ int pb_board::pb_vectorized_pairs(std::vector<string> str_vector,std::vector<std
   for (unsigned int index = 0; index < str_vector.size() ; index+=2){
 
     if (index >= str_vector.size()-1){
-      cerr << "Incorrect number of parameters in plugboard file " << endl;
+      cerr << "Incorrect number of parameters in plugboard file ";
       return INCORRECT_NUMBER_OF_PLUGBOARD_PARAMETERS;
     }
 
@@ -70,7 +70,7 @@ int pb_board::pb_vectorized_pairs(std::vector<string> str_vector,std::vector<std
 
     wired_pairs.push_back(std::make_pair(val1,val2));
   }
-  return 0;
+  return NO_ERROR;
 }
 
 
@@ -79,14 +79,17 @@ int pb_board::pb_connections(char*& filename){
   //Read file using "helper.h" function:
   Err_state = read_file(filename,pb_str);
 
-  if (Err_state != NO_ERROR){
-    cerr << filename << endl;
+  if (Err_state != NO_ERROR)
     return Err_state;
-  }
   
   pb_strvector = split(pb_str,' ');
 
   Err_state = pb_vectorized_pairs(pb_strvector, pb_wires);
 
+  if (Err_state != NO_ERROR){
+    cerr << filename << endl;
+    return Err_state;
+  }
+  
   return Err_state;
 }

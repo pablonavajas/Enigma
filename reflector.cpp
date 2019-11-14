@@ -36,7 +36,7 @@ int rf_board::rf_vectorized_pairs(std::vector<string> str_vector,std::vector<std
   for (unsigned int index = 0; index < str_vector.size() ; index+=2){
 
     if (wired_pairs.size() >= 13 or index >= str_vector.size()-1){
-      cerr << "Incorrect number of reflector parameters." << endl;
+      cerr << "Incorrect number of parameters in reflector file ";
       return INCORRECT_NUMBER_OF_REFLECTOR_PARAMETERS;
     }
 
@@ -50,12 +50,12 @@ int rf_board::rf_vectorized_pairs(std::vector<string> str_vector,std::vector<std
     ss_val2 >> val2;
 
     if (ss_val1.fail() or ss_val2.fail()){
-      cerr << "Non-numeric character in reflector configuration file." << endl;
+      cerr << "Non-numeric character in reflector file ";
       return NON_NUMERIC_CHARACTER;
     }
 
     else if (val1 < 0 or val1 > 25 or val2 < 0 or val2 > 25){
-      cerr << "Invalid index in reflector configuration file." << endl;
+      cerr << "Invalid index in reflector file ";
       return INVALID_INDEX;
     }
 
@@ -63,7 +63,7 @@ int rf_board::rf_vectorized_pairs(std::vector<string> str_vector,std::vector<std
 
       if (val1 == val2 or val1 == wired_pairs[rec_ind].first or val1 == wired_pairs[rec_ind].second or val2 == wired_pairs[rec_ind].first or val2 == wired_pairs[rec_ind].second) {
 
-	cerr << "Impossible reflector configuration." << endl;
+	cerr << "Impossible configuration in reflector file ";
         return INVALID_REFLECTOR_MAPPING;
       }
     }
@@ -71,11 +71,11 @@ int rf_board::rf_vectorized_pairs(std::vector<string> str_vector,std::vector<std
     wired_pairs.push_back(std::make_pair(val1,val2));
   }
   if (wired_pairs.size() < 13){
-    cerr << "Incorrect number of reflector parameters." << endl;
+    cerr << "Insufficient number of mappings in reflector file: ";
     return INCORRECT_NUMBER_OF_REFLECTOR_PARAMETERS;
   }
   
-  return 0;
+  return NO_ERROR;
 }
 
 
@@ -91,5 +91,10 @@ int rf_board::rf_connections(char*& filename){
 
   Err_state = rf_vectorized_pairs(rf_strvector, rf_wires);
 
+  if (Err_state != NO_ERROR){
+    cerr << filename << endl;
+    return Err_state;
+  }
+  
   return Err_state;
 }
