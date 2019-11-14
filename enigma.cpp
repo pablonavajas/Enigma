@@ -88,6 +88,7 @@ void Enigma_Machine::printenigma(){
   if (no_rot > 0){
     printVecVec(rotors->rotor_part);
     printVec(rotors->rot_notches);
+    printVec(rotors->start_pos);
   }
 }
 

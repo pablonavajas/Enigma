@@ -144,7 +144,7 @@ int rot_board::rot_settings(int argc, char** argv){
     Err_state = vectorize_rot(rot_str, rot_wires);
 
     if (Err_state != NO_ERROR){
-      cerr << argv[file_idx] << endl;
+      cerr << argv[file_idx];
       return Err_state;
     }
     
