@@ -7,6 +7,7 @@
 //
 //File: rotlib.h
 
+
 #ifndef ROTLIB_H
 #define ROTLIB_H
 
@@ -29,10 +30,10 @@ class rot_board {
   std::vector<int> rot_notches;
   std::vector<std::vector<std::pair<int,int> > > rotor_part;
 
-  //Function to construct vector and return errors according to rotor specification:
+  //Function to construct sub vectors and return errors according to rotor specification:
   int vectorize_rot(string str,std::vector<std::pair<int,int> >& wires);
 
-  //Function to construct vector (of positions) and return errors according to rotors' starting positions specification:
+  //Function to construct start positions vector and return errors according to rotors' starting positions specification:
   int vectorize(string str,std::vector<int>& start_pos);
 
   //Function to set rotors' starting positions:

@@ -111,7 +111,6 @@ void Enigma_Machine::pb_cypher(int& let_int){
       let_int = plugboard->pb_wires[idx].first;
     }
   }
-  //cout << " pb: " << let_int; 
 }
 
 
@@ -122,9 +121,7 @@ void Enigma_Machine::rot_forward(int& let_int){
     
     //Assign element occupying the current element's index:
     let_int = rotors->rotor_part[idx][let_int].first;
-    //cout << " rot " << idx << ": " << let_int;
   }
-  //cout << " rot f: " << let_int;
 }
 
 
@@ -143,7 +140,6 @@ void Enigma_Machine::rf_cypher(int& let_int){
       let_int = reflector->rf_wires[idx].first;
     }
   }
-  //cout << " rf: " << let_int;
 }
 
 
@@ -161,48 +157,40 @@ void Enigma_Machine::rot_back(int& let_int){
       //When value is found assign index to helper variable:
       if (let_int == rotors->rotor_part[vec_idx][val_idx].first){
 
-	//Assign index to helper variable to avoid further swaps from loop:
+	//Assign index to helper variable to avoid further swaps:
 	help_int = val_idx;
       }
     }
     let_int = help_int;
-    //cout << " rotb " << vec_idx << ": " << let_int;
   }
-  //cout << " rotb: " << let_int;
 }
 
   
 
 void Enigma_Machine::cypher(char& letter){
 
-  //cout << "\n" << letter << endl;
-  //Convert char to integer in range (0-25)
   int let_int = int(letter) - 65;
   
   pb_cypher(let_int);
 
   if (no_rot > 0){
 
+    //Rotation BEFORE closing circuit as specified:
     rotors->rotation(rotors->rotor_part,rotors->rot_notches);
 
     rot_forward(let_int);
-  
   }
     
   rf_cypher(let_int);
-  
 
   if (no_rot > 0){
 
     rot_back(let_int);
-
   }
 
   pb_cypher(let_int);
 
   letter = char(let_int + 65);
-
-  //printenigma();
 }
 
 

@@ -7,6 +7,7 @@
 //
 //File: helper.cpp
 
+
 #include <string>
 #include <fstream>
 #include <iostream>
@@ -99,6 +100,7 @@ void printVecPairs(std::vector<std::pair<int,int> > const wires){
 
 void printVecVec(std::vector<std::vector<std::pair<int,int> > > const vect){
   cout << "\n";
+  
   //Print indexes to improve readability
   for (unsigned int index = 0; index < vect[0].size(); index++){
     cout << setw(1) << "|" << setw(2) << index;

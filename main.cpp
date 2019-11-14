@@ -7,6 +7,7 @@
 //
 //File: main.cpp
 
+
 #include <iostream>
 #include <string>
 #include <sstream>
@@ -24,31 +25,28 @@ int main(int argc, char** argv) {
   Enigma_Machine *enigma = new Enigma_Machine;
 
   int Err_state;
+  char letter;
+  string line;
 
   //Configure Enigma Machine:
   Err_state = enigma->connections(argc,argv);
 
   if (Err_state != NO_ERROR)
     return Err_state;
-
   
-  //Encryption and decryption mechanism:
-
-  string line;
-
+  //Read input solution:
   getline(std::cin,line);
-
   std::istringstream iss(line);
-
-  char letter;
   
   while (iss >> std::ws >> letter){
 
+    //Raise exception if INVALID_INPUT_CHARACTER
     if (int(letter) < 65 or int(letter) > 90){
       cerr << letter << " is not a valid input character (input characters must be upper case letters A-Z)!" << endl;
       return INVALID_INPUT_CHARACTER;
     }
     
+    //Encryption and decryption mechanism:
     enigma->cypher(letter);
 
     cout << letter;
@@ -57,6 +55,5 @@ int main(int argc, char** argv) {
   delete enigma;
 
   return Err_state;
-
 }
 
