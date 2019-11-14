@@ -122,9 +122,9 @@ void Enigma_Machine::rot_forward(int& let_int){
     
     //Assign element occupying the current element's index:
     let_int = rotors->rotor_part[idx][let_int];
-    //cout << " rot " << idx << ": " << let_int;
+    cout << " rot " << idx << ": " << let_int;
   }
-  //cout << " rot f: " << let_int;
+  cout << " rot f: " << let_int;
 }
 
 
@@ -175,12 +175,15 @@ void Enigma_Machine::rot_back(int& let_int){
 
 void Enigma_Machine::cypher(char& letter){
 
+  //cout << "\n" << letter << endl;
   //Convert char to integer in range (0-25)
   int let_int = int(letter) - 65;
   
   pb_cypher(let_int);
 
   if (no_rot > 0){
+
+    rotors->rotation(rotors->rotor_part,rotors->rot_notches);
 
     rot_forward(let_int);
   
@@ -193,7 +196,6 @@ void Enigma_Machine::cypher(char& letter){
 
     rot_back(let_int);
 
-    rotors->rotation(rotors->rotor_part,rotors->rot_notches);
   }
 
   pb_cypher(let_int);
