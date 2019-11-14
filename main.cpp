@@ -37,9 +37,9 @@ int main(int argc, char** argv) {
 
   string line;
 
-  cout << line << endl;
-
   getline(std::cin,line);
+  
+  cout << line << endl;
 
   std::istringstream iss(line);
 
