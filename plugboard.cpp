@@ -42,7 +42,7 @@ int pb_board::pb_vectorized_pairs(std::vector<string> str_vector,std::vector<std
 
     //Check if an odd number of elements are introduced:
     if (index+1 >= str_vector.size() or wired_pairs.size() >= 13){
-      cerr << "Incorrect number of paramters in plugboard file ";
+      cerr << "Incorrect number of parameters in plugboard file ";
       return INCORRECT_NUMBER_OF_PLUGBOARD_PARAMETERS;
     }
 
