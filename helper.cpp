@@ -25,7 +25,7 @@ int read_file(const char* filename, string& str){
 
   if (in.fail()) {
 
-    cerr << "Failed to read configuration file." << endl;
+    cerr << "Error opening configuration file " << filename << endl;
     return ERROR_OPENING_CONFIGURATION_FILE;
   }
   
