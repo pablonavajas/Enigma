@@ -107,7 +107,7 @@ void Enigma_Machine::pb_cypher(int& let_int){
       let_int = plugboard->pb_wires[idx].first;
     }
   }
-  cout << " pb: " << let_int; 
+  //cout << " pb: " << let_int; 
 }
 
 
@@ -118,9 +118,9 @@ void Enigma_Machine::rot_forward(int& let_int){
     
     //Assign element occupying the current element's index:
     let_int = rotors->rotor_part[idx][let_int];
-    cout << " rot " << idx << ": " << let_int;
+    //cout << " rot " << idx << ": " << let_int;
   }
-  cout << " rot f: " << let_int;
+  //cout << " rot f: " << let_int;
 }
 
 
@@ -139,7 +139,7 @@ void Enigma_Machine::rf_cypher(int& let_int){
       let_int = reflector->rf_wires[idx].first;
     }
   }
-  cout << " rf: " << let_int;
+  //cout << " rf: " << let_int;
 }
 
 
@@ -162,9 +162,9 @@ void Enigma_Machine::rot_back(int& let_int){
       }
     }
     let_int = help_int;
-    cout << " rotb " << vec_idx << ": " << let_int;
+    //cout << " rotb " << vec_idx << ": " << let_int;
   }
-  cout << " rotb: " << let_int;
+  //cout << " rotb: " << let_int;
 }
 
   
@@ -196,7 +196,7 @@ void Enigma_Machine::cypher(char& letter){
 
   letter = char(let_int + 65);
 
-  printenigma();
+  //printenigma();
 }
 
 

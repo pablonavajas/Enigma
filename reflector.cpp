@@ -35,7 +35,12 @@ int rf_board::rf_vectorized_pairs(std::vector<string> str_vector,std::vector<std
 
   for (unsigned int index = 0; index < str_vector.size() ; index+=2){
 
-    if (wired_pairs.size() >= 13 or index >= str_vector.size()-1){
+    if (index >= str_vector.size()-1){
+      cerr << "Incorrect (odd) number of parameters in reflector file ";
+      return INCORRECT_NUMBER_OF_REFLECTOR_PARAMETERS;
+    }
+
+    else if (wired_pairs.size() >= 13){
       cerr << "Incorrect number of parameters in reflector file ";
       return INCORRECT_NUMBER_OF_REFLECTOR_PARAMETERS;
     }
