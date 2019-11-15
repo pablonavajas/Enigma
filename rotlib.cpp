@@ -121,25 +121,25 @@ int rot_board::vectorize(string str,std::vector<int>& start_pos){
 void rot_board::initialPositions(std::vector<std::vector<std::pair<int,int> > >& rotor_part, std::vector<int> start_pos){
 
   //Set initial position for all rotors:
-  for (int rot_index = rotor_part.size()-1; rot_index >= 0; rot_index--){
+  for (int rot_index = rotor_part.size() - 1 ; rot_index >= 0 ; rot_index-- ) {
 
     //Perform rotation established in starting position vector:
     //Note there can be extra initial positions (assigned left to right)
-    std::rotate(rotor_part[rot_index].begin(), rotor_part[rot_index].begin()+start_pos[rotor_part.size()-1-rot_index],rotor_part[rot_index].end());
+    std::rotate( rotor_part[rot_index].begin() , rotor_part[rot_index].begin() + start_pos[rotor_part.size() - 1 - rot_index] , rotor_part[rot_index].end() );
 
     //Update mapping values in each rotor:
-    for (unsigned int val_idx = 0; val_idx < rotor_part[rot_index].size(); val_idx++){
+    for (unsigned int val_idx = 0; val_idx < rotor_part[rot_index].size() ; val_idx++ ) {
       
-      int new_val = (rotor_part[rot_index][val_idx].first - start_pos[rotor_part.size()-1-rot_index])%26;
+      int new_val = ( rotor_part[rot_index][val_idx].first - start_pos[rotor_part.size() - 1 - rot_index] ) % 26;
       //Avoid negative value:
-      rotor_part[rot_index][val_idx].first = (new_val >= 0) ? new_val : 26+new_val;
+      rotor_part[rot_index][val_idx].first = (new_val >= 0) ? new_val : 26 + new_val;
     }
   }
 }
 
 
 
-int rot_board::rot_settings(int argc, char** argv){
+int rot_board::rot_settings(int argc, char** argv) {
 
   std::vector<std::pair<int,int> > rot_wires;
 
@@ -174,7 +174,7 @@ int rot_board::rot_settings(int argc, char** argv){
 
   string start_str;
 
-  Err_state = read_file(argv[argc-1], start_str);
+  Err_state = read_file(argv[argc - 1], start_str);
 
   //Raise error if failed to read:
   if (Err_state != NO_ERROR)
@@ -204,27 +204,27 @@ int rot_board::rot_settings(int argc, char** argv){
 void rot_board::rotation(std::vector<std::vector<std::pair<int,int>>> & rotor_part, std::vector<int> rot_notches){
 
   //Always rotate first rotor and update its values:
-  std::rotate(rotor_part[0].begin(), rotor_part[0].begin()+1,rotor_part[0].end());
-  for (unsigned int val_idx = 0; val_idx < rotor_part[0].size(); val_idx++){
+  std::rotate(rotor_part[0].begin() , rotor_part[0].begin() + 1 ,rotor_part[0].end() );
+  for (unsigned int val_idx = 0; val_idx < rotor_part[0].size() ; val_idx++ ) {
 
-    int new_val = (rotor_part[0][val_idx].first - 1)%26;
-    rotor_part[0][val_idx].first = (new_val >= 0) ? new_val : 26+new_val;
+    int new_val = (rotor_part[0][val_idx].first - 1) % 26;
+    rotor_part[0][val_idx].first = (new_val >= 0) ? new_val : 26 + new_val;
   }
   //Set flag for "previous rotor rotated":
   bool prev_rot = true;
 
   //For all other rotors, check if previous one rotated and
   //Use frame of reference (vector pair) to check if equal to notch
-  for (unsigned int rot_index = 1; rot_index < rotor_part.size(); rot_index++){
+  for (unsigned int rot_index = 1; rot_index < rotor_part.size() ; rot_index++) {
     
-    if (rotor_part[rot_index-1][0].second == rot_notches[rot_index-1] and prev_rot == true){
+    if (rotor_part[rot_index - 1][0].second == rot_notches[rot_index - 1] and prev_rot == true){
       
-      std::rotate(rotor_part[rot_index].begin(), rotor_part[rot_index].begin()+1,rotor_part[rot_index].end());
-      for (unsigned int val_idx = 0; val_idx < rotor_part[rot_index].size(); val_idx++){
+      std::rotate(rotor_part[rot_index].begin(), rotor_part[rot_index].begin() + 1,rotor_part[rot_index].end() );
+      for (unsigned int val_idx = 0; val_idx < rotor_part[rot_index].size(); val_idx++) {
 
 	//Avoid negative value:
-	int new_val = (rotor_part[rot_index][val_idx].first - 1)%26;
-	rotor_part[rot_index][val_idx].first = (new_val >= 0) ? new_val : 26+new_val;
+	int new_val = (rotor_part[rot_index][val_idx].first - 1 ) % 26;
+	rotor_part[rot_index][val_idx].first = (new_val >= 0) ? new_val : 26 + new_val;
       }
     }
     //Change flag if not notched to avoid further turns:
